@@ -1,0 +1,99 @@
+<!DOCTYPE>
+<html lang="en">
+    <head>
+        <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+        <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+        <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+        <link rel="stylesheet" href="addition.css">
+        <title>Addition</title>
+    </head>
+
+    <body>
+        <div id="app" />
+        <script type="text/babel">
+            class Score extends React.Component {
+                render() {
+                    return (
+                        <h2 id="score">Score: {this.props.score} </h2>
+                    );
+                }
+            }
+            
+            class Equation extends React.Component {
+                constructor (props) {
+                    super(props)
+                    this.state = {
+                        fields: {},
+                        errors: {},
+                        score: 0
+                    }
+                }
+
+                handleValidation() {
+                    let fields = this.state.fields;
+                    let errors = {};
+                    let formIsValid = true;
+
+                    if (parseInt(fields["sum"]) !== parseInt(this.props.op1) + parseInt(this.props.op2)) {
+                        formIsValid = false;
+                        errors["sum"] = "Incorrect!";
+                    }
+
+                    this.setState({errors: errors});
+                    return formIsValid;
+                }
+
+                handleChange (field, e){
+                    let fields = this.state.fields
+                    fields[field] = e.target.value
+                    this.setState({fields})
+                }
+
+                contactSubmit(e) {
+                    e.preventDefault()
+
+                    if (this.handleValidation()) {
+                        alert('Correct!')
+                        
+                    } else {
+                        alert('Incorrect!')
+                    }
+                }
+
+                render() {
+                    return (
+                        <div>
+                            <h1>{this.props.op1} + {this.props.op2}</h1>
+                            <form onSubmit = {this.contactSubmit.bind(this)}>
+                                <input type="text" onChange={this.handleChange.bind(this, "sum")} value={this.state.fields["sum"]}/>
+                            </form>
+                            <button onClick={this.reset}>Reset</button>
+                        </div>
+                    );
+
+                }
+
+                reset = () => {
+                    this.setState({
+                        score: 0
+                    });
+                }
+            }
+
+            class App extends React.Component {
+                render() {
+                    let op1 = Math.floor(Math.random() * Math.floor(100)) + 1
+                    let op2 = Math.floor(Math.random() * Math.floor(100)) + 1
+                    return (
+                        <div>
+                            <Equation op1={op1.toString()} op2={op2.toString()} />
+                            <Score score="0" />
+                        </div>
+                    );
+                }
+            }
+
+            ReactDOM.render(<App />, document.querySelector("#app"))
+        </script>
+    </body>
+</html>
