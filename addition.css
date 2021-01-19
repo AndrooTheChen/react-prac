@@ -19,3 +19,15 @@ form {
     justify-content: center;
     text-align: center;
 }
+
+#reset {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

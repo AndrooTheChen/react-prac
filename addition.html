@@ -25,6 +25,8 @@
                     this.state = {
                         fields: {},
                         errors: {},
+                        op1: Math.floor(Math.random() * Math.floor(100)) + 1,
+                        op2: Math.floor(Math.random() * Math.floor(100)) + 1,
                         score: 0
                     }
                 }
@@ -34,7 +36,7 @@
                     let errors = {};
                     let formIsValid = true;
 
-                    if (parseInt(fields["sum"]) !== parseInt(this.props.op1) + parseInt(this.props.op2)) {
+                    if (parseInt(fields["sum"]) !== parseInt(this.state.op1) + parseInt(this.state.op2)) {
                         formIsValid = false;
                         errors["sum"] = "Incorrect!";
                     }
@@ -53,7 +55,12 @@
                     e.preventDefault()
 
                     if (this.handleValidation()) {
-                        alert('Correct!')
+                        this.setState(curr => ({
+                            score: curr.score + 1,
+                            op1: Math.floor(Math.random() * Math.floor(100)) + 1,
+                            op2: Math.floor(Math.random() * Math.floor(100)) + 1, 
+                            fields: {}
+                        }));
                         
                     } else {
                         alert('Incorrect!')
@@ -63,11 +70,15 @@
                 render() {
                     return (
                         <div>
-                            <h1>{this.props.op1} + {this.props.op2}</h1>
+                            <h1>{this.state.op1} + {this.state.op2}</h1>
                             <form onSubmit = {this.contactSubmit.bind(this)}>
-                                <input type="text" onChange={this.handleChange.bind(this, "sum")} value={this.state.fields["sum"]}/>
+                                <input id="inputSum" type="text" onChange={this.handleChange.bind(this, "sum")} value={this.state.fields["sum"]} />
+
                             </form>
-                            <button onClick={this.reset}>Reset</button>
+                            <Score score={this.state.score} />
+                            <div className="center">
+                                <button onClick={this.reset}>Reset</button>
+                            </div>
                         </div>
                     );
 
@@ -82,12 +93,11 @@
 
             class App extends React.Component {
                 render() {
-                    let op1 = Math.floor(Math.random() * Math.floor(100)) + 1
-                    let op2 = Math.floor(Math.random() * Math.floor(100)) + 1
+                    // let op1 = Math.floor(Math.random() * Math.floor(100)) + 1
+                    // let op2 = Math.floor(Math.random() * Math.floor(100)) + 1
                     return (
                         <div>
-                            <Equation op1={op1.toString()} op2={op2.toString()} />
-                            <Score score="0" />
+                            <Equation />
                         </div>
                     );
                 }
