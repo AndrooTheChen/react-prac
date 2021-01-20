@@ -1,0 +1,66 @@
+<!DOCTYPE>
+<html lang="en">
+    <head>
+        <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+        <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+        <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+        <title>Tasks</title>
+    </head>
+
+    <body>
+        <div id="app" />
+        <script type="text/babel">
+            class Tasklist extends React.Component {
+                constructor(props) {
+                    super(props)
+                    this.state = {
+                        task_list: [],
+                        new_task: "",
+                    }
+                }
+
+                render() {
+                    const tasks = this.state.task_list
+                    const render_list = tasks.map((tasks) => 
+                        <li key={tasks}>
+                            {tasks}
+                        </li>
+                    )
+
+                    return (
+                        <div>
+                            <h1>Tasks</h1>
+                            <ul>{render_list}</ul>
+                            <input onChange={this.updateField} value={this.state.new_task} />
+                            <button onClick={this.addTask}>Add task</button>
+                        </div>
+                    )
+                }
+
+                updateField = (event) => {
+                    this.setState({
+                        new_task: event.target.value
+                    })
+                }
+
+                addTask = (event) => {
+                    this.setState(state => ({
+                        task_list: [...state.task_list, this.state.new_task],
+                        new_task: ""
+                    }))
+                }
+            }
+
+            class App extends React.Component {
+                render() {
+                    return(
+                        <div>
+                            <Tasklist />
+                        </div>
+                    );
+                }
+            }
+            ReactDOM.render(<App />, document.querySelector("#app"))
+        </script>
+    </body>
+</html>
