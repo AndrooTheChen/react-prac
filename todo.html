@@ -32,7 +32,7 @@
 
                     return (
                         <div>
-                            <h1>Tasks</h1>
+                            <h1>Tasks: {this.state.task_list.length} total</h1>
                             <ul>{render_list}</ul>
                             <input onChange={this.updateField} value={this.state.new_task} />
                             <button onClick={this.addTask}>Add task</button>
@@ -56,6 +56,7 @@
                 deleteTask = (event) => {
                     console.log(event.target.value)
                     const delIdx = this.state.task_list.indexOf(event.target.value)
+                    this.state.task_list.splice(delIdx, 1)
                     this.setState(state => ({
                         task_list: state.task_list
                     }))
