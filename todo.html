@@ -21,21 +21,24 @@
 
                 render() {
                     const tasks = this.state.task_list
-                    const render_list = tasks.map((tasks) => 
-                        <li key={tasks}>
+                    const render_list = tasks.map((tasks, i) =>
+                        <li key={i}>
                             {tasks} &nbsp;
                             <span>
-                                <button onClick={this.deleteTask} value={tasks}>Delete</button>
+                                <button onClick={() => this.deleteTaskv2(i)}>Delete</button>
                             </span>
                         </li>
                     )
 
                     return (
                         <div>
-                            <h1>Tasks: {this.state.task_list.length} total</h1>
+                            <h1>Tasks</h1>
                             <ul>{render_list}</ul>
-                            <input onChange={this.updateField} value={this.state.new_task} />
-                            <button onClick={this.addTask}>Add task</button>
+                            <div>
+                                <input onChange={this.updateField} value={this.state.new_task} />
+                                <button onClick={this.addTask}>Add task</button>
+                            </div>
+                            Number of tasks: {this.state.task_list.length}
                         </div>
                     )
                 }
@@ -54,12 +57,21 @@
                 }
 
                 deleteTask = (event) => {
-                    console.log(event.target.value)
                     const delIdx = this.state.task_list.indexOf(event.target.value)
                     this.state.task_list.splice(delIdx, 1)
                     this.setState(state => ({
                         task_list: state.task_list
                     }))
+                }
+
+                deleteTaskv2 = (task) => {
+                    this.setState(state => {
+                        const updatedList = [...state.task_list]
+                        updatedList.splice(task, 1)
+                        return {
+                            task_list: updatedList
+                        }
+                    })
                 }
             }
 
