@@ -21,11 +21,19 @@
 
                 render() {
                     const tasks = this.state.task_list
+                    // const render_list = tasks.map((tasks, i) =>
+                    //     <li key={i}>
+                    //         {tasks} &nbsp;
+                    //         <span>
+                    //             <button onClick={() => this.deleteTaskv2(i)}>Delete</button>
+                    //         </span>
+                    //     </li>
+                    // )
                     const render_list = tasks.map((tasks, i) =>
                         <li key={i}>
                             {tasks} &nbsp;
                             <span>
-                                <button onClick={() => this.deleteTaskv2(i)}>Delete</button>
+                                <button data-index={i} onClick={this.deleteTaskv3}>Delete</button>
                             </span>
                         </li>
                     )
@@ -65,6 +73,17 @@
                 }
 
                 deleteTaskv2 = (task) => {
+                    this.setState(state => {
+                        const updatedList = [...state.task_list]
+                        updatedList.splice(task, 1)
+                        return {
+                            task_list: updatedList
+                        }
+                    })
+                }
+
+                deleteTaskv3 = (event) => {
+                    const task = event.target.dataset.index
                     this.setState(state => {
                         const updatedList = [...state.task_list]
                         updatedList.splice(task, 1)
