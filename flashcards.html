@@ -4,49 +4,61 @@
         <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
         <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
         <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-        <title>Tasks</title>
+        <title>Flashcards</title>
     </head>
 
     <body>
         <div id="app" />
         <script type="text/babel">
             
-            class CardEditor extends React.Component {
-                render() {
-                    return (
-                        <div>
-                            This is the editor.
-                        </div>
-                    )
-                }
+            // class CardEditor extends React.Component {
+            //     render() {
+            //         return (
+            //             <div>
+            //                 This is the editor.
+            //             </div>
+            //         )
+            //     }
+            // }
+
+            // class CardViewer extends React.Component {
+            //     render() {
+            //         return (
+            //             <div>
+            //                 This is the viewer.
+            //             </div>
+            //         )
+            //     }
+            // }
+
+            // class App extends React.Component {
+            //     constructor(props) {
+            //         super(props)
+            //         this.state = {
+            //             editor: false
+            //         }
+            //     }
+
+            //     render() {
+            //         return (
+            //             <div>
+            //                 {this.state.editor ? <CardEditor /> : <CardViewer />} 
+            //             </div>
+            //         )
+            //     }
+            // }
+
+            function App() {
+                const [editor, setEditor] = useState(false);
+
+                return (
+                    <div>
+                        test text
+                    </div>
+                );
             }
 
-            class CardViewer extends React.Component {
-                render() {
-                    return (
-                        <div>
-                            This is the viewer.
-                        </div>
-                    )
-                }
-            }
-
-            class App extends React.Component {
-                constructor(props) {
-                    super(props)
-                    this.state = {
-                        editor: false
-                    }
-                }
-
-                render() {
-                    return (
-                        <div>
-                            {this.state.editor ? <CardEditor /> : <CardViewer />} 
-                        </div>
-                    )
-                }
-            }
+            
 
             ReactDOM.render(<App />, document.querySelector("#app"))
         </script>
